@@ -1,0 +1,283 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    controllerName="sd17quais.controller.Quais"
+    xmlns:t="sap.ui.table"
+    height="100%"
+>
+    <f:DynamicPage
+        id="_IDGenDynamicPage"
+        headerExpanded="true"
+    >
+        <f:title>
+            <f:DynamicPageTitle id="_IDGenDynamicPageTitle">
+                <f:heading>
+                    <Title
+                        id="_IDGenTitle"
+                        text="Gestion des Quais"
+                        level="H1"
+                    />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- Header -->
+        <f:header>
+            <f:DynamicPageHeader id="_IDGenDynamicPageHeader">
+                <f:content>
+                    <!-- Filters -->
+                    <fb:FilterBar
+                        id="filterbar"
+                        persistencyKey="LogIRIUMPersistencyKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                    >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem"
+                                name="code_article"
+                                label="Code Article"
+                                groupName="Général"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input id="filtreCodeArticle" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem1"
+                                name="division"
+                                label="Division"
+                                groupName="Général"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input id="filtreDivision" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem
+                                id="_IDGenFilterGroupItem2"
+                                name="magasin"
+                                label="Magasin"
+                                groupName="Général"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input id="filtreMagasin"  showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <!-- Page -->
+            <f:content>
+            <t:Table
+                id="table"
+                rows="{/ZCDS_APP_QUAIS}"
+                selectionMode="Single"
+                class="tableMargin"
+                width="auto"
+                ariaLabelledBy="title"
+            >
+                <!-- Action Bar -->
+                <t:extension>
+                    <OverflowToolbar
+                        id="_IDGenOverflowToolbar1"
+                        style="Clear"
+                        class="headerPadding"
+                    >
+                        <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                        <Button
+                            id="_IDGenButton2"
+                           
+                            text="Modifier"
+                            press=".onEditPress"
+                            type="Emphasized"
+                            visible="{= !${viewModel>/editMode}}"
+                        />
+                        <Button 
+                            id="_IDGenButton3"
+                            class="sapUiTinyMargin"
+                            text="Valider"
+                            press=".onSavePress"
+                            type="Accept"
+                            visible="{viewModel>/editMode}"
+                        />
+                        <Button 
+                            id="_IDGenButton"
+                            class="sapUiTinyMargin"
+                            text="Annuler"
+                            press=".onCancelPress"
+                            type="Reject"
+                            visible="{viewModel>/editMode}"
+                        />
+                        <Button 
+                            id="_IDGenButton1"
+                            icon="sap-icon://action-settings"
+                            tooltip="show context of latest selection item"
+                            press=".onColumnSettingsPress"
+                        />
+                    </OverflowToolbar>
+                </t:extension>
+
+                <t:columns>
+                    <t:Column
+                        id="_IDGenColumn1"
+                        
+                    >
+                        <Label
+                            id="_IDGenText1"
+                            text="Code Article"
+                        />
+                        <t:template>
+                            <Text
+                                id="_IDGenText"
+                                text="{code_article}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn2"
+                        width="8%"
+                    >
+                        <Label
+                            id="_IDGenLabel"
+                            text="Division"
+                        />
+                        <t:template>
+                            <Text
+                                id="_IDGenText2"
+                                text="{Division}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn3"
+                        width="8%"
+                    >
+                        <Label
+                            id="_IDGenLabel1"
+                            text="Magasin"
+                        />
+                        <t:template>
+                            <Text
+                                id="_IDGenText3"
+                                text="{Magasin}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn4"
+                        width="15%"
+                    >
+                        <Label
+                            id="_IDGenLabel2"
+                            text="Stock"
+                        />
+                        <t:template>
+                            <Text
+                                id="_IDGenText4"
+                                text="{Stock}"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn5"
+                        width="6%"
+                    >
+                        <Label
+                            id="_IDGenLabel3"
+                            text="Quai 1"
+                        />
+                        <t:template>
+                        
+                           <Select id="_IDGenSelect"
+                                items="{priorityModel>/priorities}"
+                                selectedKey="{Quai1}"
+                                change=".onQuaiChange"
+                                enabled="{viewModel>/editMode}">
+                                <core:Item id="_IDGenItem" key="{priorityModel>key}" text="{priorityModel>text}" />
+                            </Select>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn6"
+                        width="6%"
+                    >
+                        <Label
+                            id="_IDGenLabel4"
+                            text="Quai 2"
+                        />
+                        <t:template>
+                            <Select id="_IDGenSelect3" 
+                                items="{priorityModel>/priorities}"
+                                selectedKey="{Quai2}"
+                                change=".onQuaiChange"
+                                enabled="{viewModel>/editMode}">
+                                <core:Item id="_IDGenItem3"  key="{priorityModel>key}" text="{priorityModel>text}" />
+                            </Select>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn7"
+                        width="6%"
+                    >
+                        <Label
+                            id="_IDGenLabel5"
+                            text="Quai 3"
+                        />
+                        <t:template>
+                            <Select id="_IDGenSelect2" 
+                                items="{priorityModel>/priorities}"
+                                selectedKey="{Quai3}"
+                                change=".onQuaiChange"
+                                enabled="{viewModel>/editMode}">
+                                <core:Item id="_IDGenItem2"  key="{priorityModel>key}" text="{priorityModel>text}" />
+                            </Select>
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column
+                        id="_IDGenColumn8"
+                        width="6%"
+                    >
+                        <Label
+                            id="_IDGenLabel6"
+                            text="Quai 4"
+                        />
+                        <t:template>
+                            <Select id="_IDGenSelect1" 
+                                items="{priorityModel>/priorities}"
+                                selectedKey="{Quai4}"
+                                change=".onQuaiChange"
+                                enabled="{viewModel>/editMode}">
+                                <core:Item id="_IDGenItem1"  key="{priorityModel>key}" text="{priorityModel>text}" />
+                            </Select>
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
